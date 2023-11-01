@@ -6,9 +6,9 @@ import com.example.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -21,12 +21,10 @@ public class EmployeeService {
     }
 
     public boolean saveEmployee(EmployeeDTO employeeDTO) {
-        var existingEmployee = employeeRepository.findByEmail(employeeDTO.getEmail());
-        var employee = mapDtoToEmployee(employeeDTO);
-
-        if (existingEmployee.isPresent()) {
+        if (employeeRepository.findByEmail(employeeDTO.getEmail()).isPresent()) {
             return false;
         }
+        Employee employee = mapDtoToEmployee(employeeDTO);
         employeeRepository.save(employee);
         return true;
     }
@@ -34,7 +32,7 @@ public class EmployeeService {
     public List<Employee> saveMultipleEmployees(List<EmployeeDTO> employeeDTOList) {
         List<Employee> employees = employeeDTOList.stream()
                 .map(this::mapDtoToEmployee)
-                .collect(toList());
+                .collect(Collectors.toList());
         return employeeRepository.saveAll(employees);
     }
 
@@ -49,16 +47,33 @@ public class EmployeeService {
     }
 
     public List<Employee> fetchAllEmployees() {
-        var employees = employeeRepository.findAll();
-        return employees;
+        return employeeRepository.findAll();
+    }
+
+    public List<String> fetchEmployeeByNameStartsWith(String alphabet) {
+        return employeeRepository.getEmployeeByNameStartsWith(alphabet)
+                .stream()
+                .map(employee -> employee.getFirstName() + " " + employee.getLastName())
+                .collect(Collectors.toList());
+    }
+
+    public HashMap<String, Double> fetchEmployeeWithSalaryGreaterThan(Integer salary) {
+        return fetchAllEmployees().stream()
+                .filter(employee -> employee.getSalary() >= salary)
+                .collect(Collectors.toMap(
+                        employee -> employee.getFirstName() + " " + employee.getLastName(),
+                        Employee::getSalary,
+                        (oldValue, newValue) -> oldValue,
+                        HashMap::new
+                ));
     }
 
     public boolean deleteEmployeeById(Integer id) {
-        var optionalEmployee = employeeRepository.findById(id);
-        if (optionalEmployee.isEmpty()) {
-            return false;
-        }
-        employeeRepository.delete(optionalEmployee.get());
-        return true;
+        return employeeRepository.findById(id)
+                .map(employee -> {
+                    employeeRepository.delete(employee);
+                    return true;
+                })
+                .orElse(false);
     }
 }

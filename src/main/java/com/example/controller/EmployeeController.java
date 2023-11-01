@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -30,6 +31,16 @@ public class EmployeeController {
     @GetMapping(value = "/employees")
     public ResponseEntity<List<Employee>> fetchAllEmployees() {
         return ResponseEntity.ok(employeeService.fetchAllEmployees());
+    }
+
+    @GetMapping(value = "/employee/{starts}")
+    public ResponseEntity<List<String>> fetchAllEmployeesByNameStartsWith(@PathVariable String starts) {
+        return ResponseEntity.ok(employeeService.fetchEmployeeByNameStartsWith(starts));
+    }
+
+    @GetMapping(value = "/employees/{salary}")
+    public ResponseEntity<HashMap<String, Double>> fetchEmployeeWithGreaterSalary(@PathVariable Integer salary) {
+        return ResponseEntity.ok(employeeService.fetchEmployeeWithSalaryGreaterThan(salary));
     }
 
     @DeleteMapping(value = "/employee/{id}")
