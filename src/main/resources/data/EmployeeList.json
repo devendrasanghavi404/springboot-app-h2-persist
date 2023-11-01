@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7,
+    "firstName": "Riya",
+    "lastName": "Gupta",
+    "email": "riya.gupta@example.com",
+    "salary": 5500,
+    "grade": "B"
+  },
+  {
+    "id": 8,
+    "firstName": "Aryan",
+    "lastName": "Verma",
+    "email": "aryan.verma@example.com",
+    "salary": 6500,
+    "grade": "B"
+  },
+  {
+    "id": 9,
+    "firstName": "Sara",
+    "lastName": "Khan",
+    "email": "sara.khan@example.com",
+    "salary": 4800,
+    "grade": "C"
+  },
+  {
+    "id": 10,
+    "firstName": "Rahul",
+    "lastName": "Shah",
+    "email": "rahul.shah@example.com",
+    "salary": 5500,
+    "grade": "B"
+  },
+  {
+    "id": 11,
+    "firstName": "Mohit",
+    "lastName": "Gupta",
+    "email": "mohit.gupta@example.com",
+    "salary": 5200,
+    "grade": "C"
+  },
+  {
+    "id": 12,
+    "firstName": "Raj",
+    "lastName": "Malhotra",
+    "email": "raj.malhotra@example.com",
+    "salary": 7500,
+    "grade": "A"
+  },
+  {
+    "id": 13,
+    "firstName": "Neha",
+    "lastName": "Sharma",
+    "email": "neha.sharma@example.com",
+    "salary": 4800,
+    "grade": "C"
+  },
+  {
+    "id": 14,
+    "firstName": "Kabir",
+    "lastName": "Kapoor",
+    "email": "kabir.kapoor@example.com",
+    "salary": 6200,
+    "grade": "B"
+  },
+  {
+    "id": 15,
+    "firstName": "Ruhi",
+    "lastName": "Singh",
+    "email": "ruhi.singh@example.com",
+    "salary": 5100,
+    "grade": "C"
+  },
+  {
+    "id": 15,
+    "firstName": "Ruhi",
+    "lastName": "Singh",
+    "email": "ruhi.singh@example.com",
+    "salary": 5100,
+    "grade": "C"
+  },
+  {
+    "id": 16,
+    "firstName": "Amit",
+    "lastName": "Kumar",
+    "email": "amit.kumar@example.com",
+    "salary": 6800,
+    "grade": "B"
+  },
+  {
+    "id": 17,
+    "firstName": "Sneha",
+    "lastName": "Verma",
+    "email": "sneha.verma@example.com",
+    "salary": 4900,
+    "grade": "C"
+  },
+  {
+    "id": 18,
+    "firstName": "Rajat",
+    "lastName": "Singh",
+    "email": "rajat.singh@example.com",
+    "salary": 7300,
+    "grade": "A"
+  },
+  {
+    "id": 19,
+    "firstName": "Anika",
+    "lastName": "Gupta",
+    "email": "anika.gupta@example.com",
+    "salary": 5500,
+    "grade": "B"
+  },
+  {
+    "id": 20,
+    "firstName": "Vikram",
+    "lastName": "Shah",
+    "email": "vikram.shah@example.com",
+    "salary": 6000,
+    "grade": "B"
+  }
+]
