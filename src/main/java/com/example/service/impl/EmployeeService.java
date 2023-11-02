@@ -1,7 +1,11 @@
 package com.example.service.impl;
 
+import com.example.dto.DepartmentDTO;
 import com.example.dto.EmployeeDTO;
+import com.example.dto.EmployeeResponseDTO;
+import com.example.model.Department;
 import com.example.model.Employee;
+import com.example.repository.DepartmentRepository;
 import com.example.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,19 +18,36 @@ import java.util.stream.Collectors;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
         this.employeeRepository = employeeRepository;
+        this.departmentRepository = departmentRepository;
     }
 
-    public boolean saveEmployee(EmployeeDTO employeeDTO) {
+    public Integer saveEmployee(EmployeeDTO employeeDTO) {
         if (employeeRepository.findByEmail(employeeDTO.getEmail()).isPresent()) {
-            return false;
+            return -1;
+        }
+
+        var optionalDepartment = departmentRepository.findByNameAndCode(employeeDTO.getDepartmentDTO().getName(), employeeDTO.getDepartmentDTO().getCode());
+        Department department;
+        if (optionalDepartment.isEmpty()) {
+            // Create a new Department from the DTO
+            var departmentDTO = mapDtoToDepartment(employeeDTO);
+            department = new Department();
+            department.setCode(departmentDTO.getCode());
+            department.setName(departmentDTO.getName());
+            department = departmentRepository.save(department);
+        } else {
+            department = optionalDepartment.get();
         }
         Employee employee = mapDtoToEmployee(employeeDTO);
-        employeeRepository.save(employee);
-        return true;
+        employee.setDepartment(department);
+
+        Employee savedEmployee = employeeRepository.save(employee);
+        return savedEmployee.getId();
     }
 
     public List<Employee> saveMultipleEmployees(List<EmployeeDTO> employeeDTOList) {
@@ -34,16 +55,6 @@ public class EmployeeService {
                 .map(this::mapDtoToEmployee)
                 .collect(Collectors.toList());
         return employeeRepository.saveAll(employees);
-    }
-
-    private Employee mapDtoToEmployee(EmployeeDTO employeeDTO) {
-        return Employee.builder()
-                .firstName(employeeDTO.getFirstName())
-                .lastName(employeeDTO.getLastName())
-                .email(employeeDTO.getEmail())
-                .grade(employeeDTO.getGrade())
-                .salary(employeeDTO.getSalary())
-                .build();
     }
 
     public List<Employee> fetchAllEmployees() {
@@ -75,5 +86,38 @@ public class EmployeeService {
                     return true;
                 })
                 .orElse(false);
+    }
+
+    private Employee mapDtoToEmployee(EmployeeDTO employeeDTO) {
+        return Employee.builder()
+                .firstName(employeeDTO.getFirstName())
+                .lastName(employeeDTO.getLastName())
+                .email(employeeDTO.getEmail())
+                .grade(employeeDTO.getGrade())
+                .salary(employeeDTO.getSalary())
+                .build();
+    }
+
+    private DepartmentDTO mapDtoToDepartment(EmployeeDTO employeeDTO) {
+        return DepartmentDTO.builder()
+                .name(employeeDTO.getDepartmentDTO().getName())
+                .code(employeeDTO.getDepartmentDTO().getCode())
+                .build();
+    }
+
+    public EmployeeResponseDTO fetchOneEmployee(Integer id) {
+        EmployeeResponseDTO responseDTO = new EmployeeResponseDTO();
+        var optionalEmployee = employeeRepository.findById(id);
+        if (optionalEmployee.isEmpty()) {
+            return responseDTO;
+        }
+        return mapEmployeeToResponseDTO(optionalEmployee.get());
+    }
+
+    private EmployeeResponseDTO mapEmployeeToResponseDTO(Employee employee) {
+        return EmployeeResponseDTO.builder()
+                .employee(employee)
+                .department(employee.getDepartment())
+                .build();
     }
 }

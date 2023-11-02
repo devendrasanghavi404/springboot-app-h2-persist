@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,4 +20,9 @@ public class Employee {
     private String email;
     private Double salary;
     private String grade;
+
+    @ManyToOne
+    @JoinColumn(name = "mapped_to_department")
+    @JsonBackReference
+    private Department department;
 }

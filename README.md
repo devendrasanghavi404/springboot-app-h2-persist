@@ -1,35 +1,39 @@
 # springboot-app-h2-persist
+
+# SELECT * FROM EMPLOYEE e inner join DEPARTMENT d ON e.MAPPED_TO_DEPARTMENT=d.id
+
 example app
 
 # ------application.yml----------
+
 spring:
-  devtools:
-    restart:
-      enabled: true
-    livereload:
-      enabled: true
-  datasource:
-    url: jdbc:h2:mem:webapp
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    generate-ddl: true
-    hibernate:
-      ddl-auto: update
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  output:
-    ansi:
-      enabled: ALWAYS
-  sql:
-    init:
-      data-locations: classpath:data/h2-database/employees.sql
-      mode: always
-      
+devtools:
+restart:
+enabled: true
+livereload:
+enabled: true
+datasource:
+url: jdbc:h2:mem:webapp
+username: sa
+password:
+driver-class-name: org.h2.Driver
+jpa:
+database-platform: org.hibernate.dialect.H2Dialect
+generate-ddl: true
+hibernate:
+ddl-auto: update
+h2:
+console:
+enabled: true
+path: /h2-console
+output:
+ansi:
+enabled: ALWAYS
+sql:
+init:
+data-locations: classpath:data/h2-database/employees.sql
+mode: always
+
 # ---------POM.xml-dependencies-----------
 
  <dependencies>
@@ -75,108 +79,109 @@ spring:
     </dependencies>
 
 # -----------Folder Structure ------------------
+
 Volume serial number is 88E3-E7F4
 C:.
-│   .gitignore
-│   boot-example-webapp.iml
-│   folderStructure.txt
-│   HELP.md
-│   mvnw
-│   mvnw.cmd
-│   pom.xml
+│ .gitignore
+│ boot-example-webapp.iml
+│ folderStructure.txt
+│ HELP.md
+│ mvnw
+│ mvnw.cmd
+│ pom.xml
 │
 ├───.mvn
-│   └───wrapper
-│           maven-wrapper.jar
-│           maven-wrapper.properties
+│ └───wrapper
+│ maven-wrapper.jar
+│ maven-wrapper.properties
 │
 ├───src
-│   ├───main
-│   │   ├───java
-│   │   │   └───com
-│   │   │       └───example
-│   │   │           │   BootExampleWebappApplication.java
-│   │   │           │   ServletInitializer.java
-│   │   │           │
-│   │   │           ├───config
-│   │   │           ├───controller
-│   │   │           │       EmployeeController.java
-│   │   │           │
-│   │   │           ├───dto
-│   │   │           │       EmployeeDTO.java
-│   │   │           │
-│   │   │           ├───helper
-│   │   │           ├───mapper
-│   │   │           ├───model
-│   │   │           │       Employee.java
-│   │   │           │
-│   │   │           ├───repository
-│   │   │           │       EmployeeRepository.java
-│   │   │           │
-│   │   │           ├───service
-│   │   │           │   └───impl
-│   │   │           │           EmployeeService.java
-│   │   │           │
-│   │   │           └───util
-│   │   └───resources
-│   │       │   application.properties
-│   │       │   application.yml
-│   │       │   h2db.mv.db
-│   │       │   h2db.trace.db
-│   │       │   webapp.xml.mv.db
-│   │       │   webapp.xml.trace.db
-│   │       │
-│   │       ├───data
-│   │       │   │   EmployeeList.json
-│   │       │   │
-│   │       │   └───h2-database
-│   │       │           employees.sql
-│   │       │
-│   │       ├───static
-│   │       └───templates
-│   └───test
-│       └───java
-│           └───com
-│               └───example
-│                       BootExampleWebappApplicationTests.java
+│ ├───main
+│ │ ├───java
+│ │ │ └───com
+│ │ │ └───example
+│ │ │ │ BootExampleWebappApplication.java
+│ │ │ │ ServletInitializer.java
+│ │ │ │
+│ │ │ ├───config
+│ │ │ ├───controller
+│ │ │ │ EmployeeController.java
+│ │ │ │
+│ │ │ ├───dto
+│ │ │ │ EmployeeDTO.java
+│ │ │ │
+│ │ │ ├───helper
+│ │ │ ├───mapper
+│ │ │ ├───model
+│ │ │ │ Employee.java
+│ │ │ │
+│ │ │ ├───repository
+│ │ │ │ EmployeeRepository.java
+│ │ │ │
+│ │ │ ├───service
+│ │ │ │ └───impl
+│ │ │ │ EmployeeService.java
+│ │ │ │
+│ │ │ └───util
+│ │ └───resources
+│ │ │ application.properties
+│ │ │ application.yml
+│ │ │ h2db.mv.db
+│ │ │ h2db.trace.db
+│ │ │ webapp.xml.mv.db
+│ │ │ webapp.xml.trace.db
+│ │ │
+│ │ ├───data
+│ │ │ │ EmployeeList.json
+│ │ │ │
+│ │ │ └───h2-database
+│ │ │ employees.sql
+│ │ │
+│ │ ├───static
+│ │ └───templates
+│ └───test
+│ └───java
+│ └───com
+│ └───example
+│ BootExampleWebappApplicationTests.java
 │
 └───target
-    ├───classes
-    │   │   application.properties
-    │   │   application.yml
-    │   │   h2db.mv.db
-    │   │   h2db.trace.db
-    │   │   webapp.xml.mv.db
-    │   │   webapp.xml.trace.db
-    │   │
-    │   ├───com
-    │   │   └───example
-    │   │       │   BootExampleWebappApplication.class
-    │   │       │   ServletInitializer.class
-    │   │       │
-    │   │       ├───controller
-    │   │       │       EmployeeController.class
-    │   │       │
-    │   │       ├───dto
-    │   │       │       EmployeeDTO$EmployeeDTOBuilder.class
-    │   │       │       EmployeeDTO.class
-    │   │       │
-    │   │       ├───model
-    │   │       │       Employee$EmployeeBuilder.class
-    │   │       │       Employee.class
-    │   │       │
-    │   │       ├───repository
-    │   │       │       EmployeeRepository.class
-    │   │       │
-    │   │       └───service
-    │   │           └───impl
-    │   │                   EmployeeService.class
-    │   │
-    │   └───data
-    │       │   EmployeeList.json
-    │       │
-    │       └───h2-database
-    │               employees.sql
-    │
-    └───generated-sources
-        └───annotations
+├───classes
+│ │ application.properties
+│ │ application.yml
+│ │ h2db.mv.db
+│ │ h2db.trace.db
+│ │ webapp.xml.mv.db
+│ │ webapp.xml.trace.db
+│ │
+│ ├───com
+│ │ └───example
+│ │ │ BootExampleWebappApplication.class
+│ │ │ ServletInitializer.class
+│ │ │
+│ │ ├───controller
+│ │ │ EmployeeController.class
+│ │ │
+│ │ ├───dto
+│ │ │ EmployeeDTO$EmployeeDTOBuilder.class
+│ │ │ EmployeeDTO.class
+│ │ │
+│ │ ├───model
+│ │ │ Employee$EmployeeBuilder.class
+│ │ │ Employee.class
+│ │ │
+│ │ ├───repository
+│ │ │ EmployeeRepository.class
+│ │ │
+│ │ └───service
+│ │ └───impl
+│ │ EmployeeService.class
+│ │
+│ └───data
+│ │ EmployeeList.json
+│ │
+│ └───h2-database
+│ employees.sql
+│
+└───generated-sources
+└───annotations
