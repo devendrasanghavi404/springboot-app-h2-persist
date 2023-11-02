@@ -25,7 +25,7 @@ public class DepartmentController {
         if (resId == -1) {
             return ResponseEntity.badRequest().body("unable to save: duplicate entry found");
         }
-        return ResponseEntity.ok("saved : true: " + departmentService.addDepartment(departmentDTO));
+        return ResponseEntity.ok("saved : true: " + resId);
     }
 
     @GetMapping("/departments")
