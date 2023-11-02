@@ -38,16 +38,7 @@ public class DepartmentService {
                 .build();
     }
 
-    public Department fetchDepartByNameAndCode(DepartmentDTO departmentDTO) {
-        var optionalDepartment = departmentRepository.findByNameAndCode(departmentDTO.getName(), departmentDTO.getCode());
-        if (optionalDepartment.isEmpty()) {
-            return Department.newInstance();
-        }
-        return optionalDepartment.get();
-    }
-
     public List<Department> fetchAllDepartments() {
-        var departmentList = departmentRepository.findAll();
-        return departmentList;
+        return departmentRepository.findAll();
     }
 }
