@@ -32,4 +32,9 @@ public class DepartmentController {
     public ResponseEntity<List<Department>> getAllDepartments() {
         return ResponseEntity.ok(departmentService.fetchAllDepartments());
     }
+
+    @GetMapping("/department/getEmployeesByDepartmentId/")
+    public ResponseEntity<Department> getDepartmentById(@RequestParam Integer deptId){
+        return ResponseEntity.ok(departmentService.getEmployeesByDepartmentId(deptId));
+    }
 }

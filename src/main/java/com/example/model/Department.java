@@ -31,4 +31,7 @@ public class Department {
         department.code = "";
         return department;
     }
+
+    @Transient
+    private List<Employee> employeeList;
 }

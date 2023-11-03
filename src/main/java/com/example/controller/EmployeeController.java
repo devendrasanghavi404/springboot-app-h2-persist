@@ -55,8 +55,14 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.fetchEmployeeWithSalaryGreaterThan(salary));
     }
 
+    @GetMapping(value = "/employees/getEmployeesByDepartmentId/")
+    public ResponseEntity<List<Employee>> getEmployeeByDepartmentId(@RequestParam Integer id) {
+        var list = employeeService.fetchAllEmployeesByDepartmentId(id);
+        return ResponseEntity.ok(list);
+    }
+
     @DeleteMapping(value = "/employee/{id}")
-    public ResponseEntity<String> removeEmployeeById(@PathVariable Integer id) {
+    public ResponseEntity<String> removeEmployeeById(@RequestParam Integer id) {
         return employeeService.deleteEmployeeById(id) ? ResponseEntity.ok("deleted: true") :
                 ResponseEntity.badRequest().body("deleted: false");
     }

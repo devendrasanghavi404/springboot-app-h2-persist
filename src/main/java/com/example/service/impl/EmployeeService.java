@@ -20,6 +20,7 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
 
+
     @Autowired
     public EmployeeService(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
         this.employeeRepository = employeeRepository;
@@ -88,6 +89,7 @@ public class EmployeeService {
                 .orElse(false);
     }
 
+
     private Employee mapDtoToEmployee(EmployeeDTO employeeDTO) {
         return Employee.builder()
                 .firstName(employeeDTO.getFirstName())
@@ -119,5 +121,11 @@ public class EmployeeService {
                 .employee(employee)
                 .department(employee.getDepartment())
                 .build();
+    }
+
+    public List<Employee> fetchAllEmployeesByDepartmentId(Integer id) {
+        var listOfEmployees = employeeRepository.findAll();
+        listOfEmployees = listOfEmployees.stream().filter(i -> i.getDepartment().getId()==(id)).collect(Collectors.toList());
+        return listOfEmployees;
     }
 }
